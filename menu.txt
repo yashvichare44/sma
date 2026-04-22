@@ -6,5 +6,10 @@ datacleaningmarathi.txt
 vis.txt
 wc.txt
 wcr.txt
-
-
+Looker.xlsx
+cleaning.csv
+data_cleaning_regional.csv
+fixed_netflix_dataset.csv
+gephi.csv
+theory.md
+theory.txt
