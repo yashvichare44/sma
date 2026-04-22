@@ -1,0 +1,116 @@
+import pandas as pd
+
+import matplotlib.pyplot as plt
+
+# Sample dataset
+
+data = {
+
+    "Platform": ["Instagram", "Facebook", "Twitter", "Instagram", "Facebook", "Twitter"],
+
+    "Likes": [120, 90, 70, 150, 60, 80],
+
+    "Shares": [30, 20, 25, 40, 15, 30],
+
+    "Comments": [50, 40, 20, 60, 30, 25]
+
+}
+
+df = pd.DataFrame(data)
+
+# total engagement per platform
+
+grouped = df.groupby("Platform")[["Likes", "Shares", "Comments"]].sum()
+
+# 1. Bar Chart
+
+grouped.plot(kind="bar")
+
+plt.title("Social Media Engagement")
+
+plt.xlabel("Platform")
+
+plt.ylabel("Count")
+
+plt.show()
+
+# 2. Pie Chart (total engagement share)
+
+platform_totals = grouped.sum(axis=1)
+
+plt.figure()
+
+platform_totals.plot(
+
+    kind="pie",
+
+    autopct="%1.1f%%",
+
+    ylabel="",
+
+    title="Platform Share of Total Engagement",
+
+)
+
+plt.show()
+
+# 3. Stacked Bar Chart
+
+grouped.plot(kind="bar", stacked=True)
+
+plt.title("Engagement Breakdown by Platform")
+
+plt.xlabel("Platform")
+
+plt.ylabel("Total Engagement")
+
+plt.show()
+
+# 4. Line Chart
+
+grouped.T.plot(kind="line", marker='o')
+
+plt.title("Engagement Type Comparison Across Platforms")
+
+plt.xlabel("Engagement Type")
+
+plt.ylabel("Count")
+
+plt.show()
+
+
+
+
+🔹 2. Data Visualization (Detailed Theory)
+
+Data visualization is the graphical representation of data using visual elements such as charts, graphs, and plots to make information easier to understand and interpret. It helps in identifying patterns, trends, relationships, and insights that may not be easily visible in raw data. By converting numerical data into visual formats, users can quickly analyze large datasets and make informed decisions. Common visualization techniques include bar charts for comparison, pie charts for proportion, line charts for trends, and stacked charts for composition analysis. Tools like matplotlib and pandas are widely used in Python to create effective visualizations. Data visualization plays a crucial role in fields such as business analytics, data science, and reporting, as it enhances communication and simplifies complex data.
+
+⸻
+
+🔹 3. Explanation of Charts Used
+
+📊 1. Bar Chart
+
+* Compares engagement across platforms
+* Easy to identify highest/lowest values
+
+⸻
+
+🥧 2. Pie Chart
+
+* Shows proportion of total engagement
+* Helps understand share distribution
+
+⸻
+
+📊 3. Stacked Bar Chart
+
+* Shows composition (likes + shares + comments)
+* Useful for breakdown analysis
+
+⸻
+
+📈 4. Line Chart
+
+* Compares engagement types across platforms
+* Highlights trends and variation

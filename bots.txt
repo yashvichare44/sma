@@ -1,0 +1,58 @@
+import requests
+import time
+
+url = "http://quotes.toscrape.com"
+
+request_times = []
+
+print("Sending requests to:", url)
+
+start_total = time.time()
+
+for i in range(10):
+    start = time.time()
+    
+    requests.get(url)
+    
+    end = time.time()
+    request_times.append(end - start)
+
+    time.sleep(0.2)  # simulate user delay (change to 0 for bot)
+
+end_total = time.time()
+
+# Metrics
+avg_time = sum(request_times) / len(request_times)
+variation = max(request_times) - min(request_times)
+total_time = end_total - start_total
+
+# Bot Detection Logic
+is_bot = avg_time < 0.3 and variation < 0.05
+
+result = "Bot Detected" if is_bot else "Human User Detected"
+
+print("Average Request Time:", avg_time)
+print("Variation:", variation)
+print("Total Time:", total_time)
+print("Result:", result)
+
+
+Bot Detection (Practical):
+This program sends repeated requests to a website and records response times.
+It compares request behavior such as speed and delay pattern to label activity as bot or human.
+The practical shows how traffic timing can be used for simple bot detection.
+
+
+
+🔹 2. Bot Detection (Detailed Theory)
+
+Bot detection is the process of identifying automated scripts or programs that interact with websites or systems, often mimicking human behavior. These bots can be used for both legitimate purposes, such as web crawling and indexing, and malicious activities like spamming, scraping, or launching attacks. One of the simplest techniques for bot detection is analyzing request patterns, particularly timing behavior. Human users typically interact with systems at irregular intervals, introducing natural delays between actions, whereas bots tend to send requests rapidly and consistently without significant variation. By measuring metrics such as average request time, total execution time, and variation in response times, it becomes possible to distinguish between human and automated behavior. If requests are sent too quickly with very little variation, the system may classify the activity as a bot. Although this method is basic and may not detect advanced bots that simulate human-like delays, it demonstrates the foundational concept of behavioral analysis in cybersecurity and web protection systems.
+
+⸻
+
+🔹 3. Key Concepts Used
+
+* Request Timing Analysis → Measures how fast requests are sent
+* Delay Pattern → Humans have natural pauses, bots don’t
+* Consistency Check → Bots show very low variation
+* Threshold Logic → Used to classify behavior

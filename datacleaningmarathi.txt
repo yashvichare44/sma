@@ -1,0 +1,54 @@
+import pandas as pd
+import re
+
+# Bigger sample dataset
+data = {
+    "Comment": [
+        "खूप छान आहे! 😊",
+        "मला आवडलं नाही!!!",
+        None,
+        "   उत्कृष्ट सेवा 👍   ",
+        "Good product!!!",
+        "डिलिव्हरी खूप उशिरा आली 😡",
+        "Nice quality 😊👍",
+        "किंमत जास्त आहे!!!",
+        "Very bad experience 😠😠",
+        "सर्विस ठीक आहे",
+        "   fast delivery!!!   ",
+        "प्रॉडक्ट खराब निघाला 😞",
+        "Awesome!!! Loved it 😍",
+        "पॅकेजिंग चांगलं होतं",
+        "Worst service ever!!!",
+        "मला खूप आवडलं 😊😊",
+        "Not worth the price!!!",
+        "ठीकठाक आहे",
+        "Superb quality!!! 🔥",
+        "   खूप वाईट अनुभव 😡   "
+    ]
+}
+
+df = pd.DataFrame(data)
+
+print("Original Data:\n", df)
+
+# Remove missing/null values
+df = df.dropna()
+
+# Convert to lowercase
+df["Comment"] = df["Comment"].str.lower()
+
+# Remove emojis & special characters
+df["Comment"] = df["Comment"].apply(lambda x: re.sub(r'[^\w\s]', '', x))
+
+# Remove extra spaces
+df["Comment"] = df["Comment"].str.strip()
+
+print("\nCleaned Data:\n", df)
+
+Marathi Text Cleaning (Practical):
+This program preprocesses comment data by removing null values and unwanted symbols.
+It converts text to lowercase, strips special characters, and removes extra spaces.
+The practical prepares raw Marathi comments into cleaner text for NLP tasks.
+
+
+Marathi text cleaning is the process of preprocessing and refining raw Marathi textual data to make it suitable for natural language processing (NLP) tasks such as sentiment analysis, text classification, or machine learning. Real-world textual data, including user comments and reviews, often contains noise in the form of missing values, emojis, special characters, punctuation, mixed languages (Marathi and English), and irregular spacing. These inconsistencies can negatively impact the performance of NLP models. The cleaning process involves removing null or missing entries, converting text into a consistent format (such as lowercase for English words), eliminating unwanted symbols and emojis using regular expressions, and trimming extra spaces to standardize the text. In multilingual contexts like Marathi, special care is taken to preserve meaningful Unicode characters while removing irrelevant noise. Effective Marathi text cleaning improves data quality, enhances readability, and ensures better accuracy and efficiency in downstream NLP applications such as sentiment detection, topic modeling, and language understanding.

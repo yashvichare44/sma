@@ -1,0 +1,151 @@
+import re
+
+import pandas as pd
+
+import matplotlib.font_manager as fm
+
+import matplotlib.pyplot as plt
+
+from wordcloud import WordCloud
+
+# Inbuilt Hindi dataset
+
+data = {
+
+    "Post": [
+
+        "भारत एक महान देश है",
+
+        "मुझे यह सेवा बहुत पसंद आई",
+
+        "यह उत्पाद बहुत खराब है",
+
+        "ग्राहक सेवा अच्छी नहीं थी",
+
+        "मुझे यह अनुभव बहुत अच्छा लगा",
+
+        "यह कीमत के हिसाब से सही नहीं है",
+
+        "बहुत शानदार और बेहतरीन",
+
+        "यह सबसे खराब अनुभव था",
+
+        "सेवा तेज और अच्छी है",
+
+        "मुझे यह बिल्कुल पसंद नहीं आया"
+
+    ]
+
+}
+
+df_hindi = pd.DataFrame(data)
+
+# Function to find Hindi font
+
+def find_system_font():
+
+    keywords = [
+
+        "nirmala", "mangal", "lohit", "deva",
+
+        "arial unicode", "gargi", "samanatar", "droid sans fallback"
+
+    ]
+
+    for font in fm.findSystemFonts():
+
+        if any(key in font.lower() for key in keywords):
+
+            return font
+
+    return None
+
+system_font = find_system_font()
+
+# Hindi stopwords
+
+hindi_stopwords = {
+
+    "के","में","है","की","को","और","का","से","हैं","पर",
+
+    "ने","भी","हो","कर","ही","था","तो","जा","रहा","गया",
+
+    "करने","गई","रहे","यह","मुझे"
+
+}
+
+# Cleaning function
+
+def clean_hindi(text):
+
+    text = re.sub(r"[^\u0900-\u097F\s]", "", str(text))
+
+    words = [w for w in text.split() if w not in hindi_stopwords]
+
+    return " ".join(words)
+
+# Apply cleaning
+
+hindi_text = " ".join(df_hindi["Post"].apply(clean_hindi))
+
+# Generate WordCloud
+
+if system_font:
+
+    print("Using font:", system_font)
+
+    wc = WordCloud(
+
+        width=800,
+
+        height=400,
+
+        background_color="white",
+
+        font_path=system_font,
+
+        regexp=r"[\u0900-\u097F]+",
+
+        collocations=False,
+
+    ).generate(hindi_text)
+
+    plt.figure(figsize=(12, 6))
+
+    plt.imshow(wc)
+
+    plt.axis("off")
+
+    plt.title("Hindi Word Cloud")
+
+    plt.show()
+
+else:
+
+    print("No Hindi font found. Please install Mangal or Nirmala UI font.")
+
+Regional Language Word Cloud (Practical):
+This program creates a Hindi/Devanagari word cloud from regional text data.
+It cleans text using regex, removes Hindi stopwords, and uses a system font that supports Devanagari characters.
+The practical demonstrates multilingual text preprocessing and visualization.
+
+
+🔹 Regional Language Word Cloud (Detailed Theory)
+
+A regional language word cloud is a technique used to visualize the frequency of words in text data written in languages other than English, such as Hindi, Marathi, or other Indian languages. Processing such data requires special handling because regional languages use Unicode character sets (like Devanagari for Hindi), which differ from standard ASCII text. In this program, the Hindi dataset is first read using the pandas library. The text is then cleaned using regular expressions to remove non-Devanagari characters, ensuring only valid Hindi text is retained. Additionally, common Hindi stopwords such as “के”, “में”, and “है” are removed because they do not contribute meaningful information to analysis. After preprocessing, all cleaned text is combined and passed to the WordCloud library to generate a word cloud, where frequently occurring words appear larger. Since Hindi text requires proper rendering, the program dynamically detects a system font that supports Devanagari script using matplotlib font management. This ensures correct visualization of characters. Such multilingual text processing is important in natural language processing applications like sentiment analysis, topic modeling, and social media analytics, especially in diverse linguistic regions like India.
+
+⸻
+
+🔹 Practical Explanation (Step-by-Step)
+
+1. Load Dataset
+    * Reads Hindi text from CSV file
+2. Font Detection
+    * Searches system fonts supporting Devanagari
+3. Text Cleaning
+    * Removes non-Hindi characters using regex
+    * Removes stopwords
+4. Text Combination
+    * Merges all cleaned text into one string
+5. WordCloud Generation
+    * Displays most frequent Hindi words visually

@@ -1,0 +1,25 @@
+import requests
+from bs4 import BeautifulSoup
+
+url = "http://books.toscrape.com"
+
+res = requests.get(url)
+soup = BeautifulSoup(res.text, "html.parser")
+
+# extract book titles
+books = soup.find_all("h3")
+
+for b in books:
+    print(b.text)
+
+Text Extraction (Practical):
+This program performs basic web scraping and text extraction using Python.
+It sends a request to the website and parses the HTML content with BeautifulSoup.
+Then it extracts all book title elements (`h3`) and prints the title text.
+This practical demonstrates how to collect useful text data from web pages for analysis.
+
+Data Extraction (General Theory):
+Data extraction is the process of collecting structured or unstructured information from various sources such as websites, databases, documents, or APIs and converting it into a usable format for analysis, storage, or further processing. It is a key step in data preprocessing and is widely used in fields like data science, business intelligence, and machine learning. The process typically involves identifying the data source, retrieving the raw data, parsing or filtering relevant information, and transforming it into structured formats like CSV, JSON, or databases. Data extraction can be performed manually or automated using tools and programming languages, ensuring efficiency, accuracy, and scalability when dealing with large volumes of data.
+
+Data Extraction Using Octoparse (Detailed):
+Octoparse is a no-code web scraping tool that enables users to extract data from websites through a visual, point-and-click interface without requiring programming knowledge. The extraction process begins by entering the target website URL into Octoparse, which then loads the webpage in a built-in browser. Users can simply click on the data elements they want to extract, such as text, images, or links, and the tool intelligently detects similar patterns to create a structured dataset. Octoparse allows users to define workflows that handle pagination, scrolling, login authentication, and dynamic content, making it suitable for complex websites. It also provides options for cloud-based extraction, scheduling tasks, and exporting data into formats like Excel, CSV, or via APIs. While it is highly user-friendly and efficient for quick data collection, it may have limitations in customization compared to programming-based approaches, especially for highly dynamic or protected websites.

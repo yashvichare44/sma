@@ -1,0 +1,38 @@
+import pandas as pd
+
+# Inbuilt dataset (sample data)
+data = {
+    "Name": ["Alice", "Bob", "Alice", "Charlie", None],
+    "Age": ["25", "30", "25", "invalid", "22"],
+    "City": ["NY", "LA", "NY", "Chicago", "LA"]
+}
+
+df = pd.DataFrame(data)
+
+print("Original Data:\n", df)
+
+# Remove duplicate rows
+df = df.drop_duplicates()
+
+# Remove missing values
+df = df.dropna()
+
+# Convert Age column to numeric
+df["Age"] = pd.to_numeric(df["Age"], errors="coerce")
+
+# Remove rows where Age conversion failed
+df = df.dropna()
+
+# Standardize names to lowercase
+df["Name"] = df["Name"].str.lower()
+
+print("\nCleaned Data:\n", df)
+
+English Data Cleaning (Practical):
+This program cleans tabular English data using pandas.
+It removes duplicate rows, handles missing values, converts age to numeric format, and standardizes names to lowercase.
+The practical demonstrates core preprocessing steps before analysis or machine learning.
+
+
+Data Cleaning (Detailed Theory):
+Data cleaning is a fundamental step in the data preprocessing pipeline that focuses on identifying, correcting, and removing errors, inconsistencies, and inaccuracies present in raw data to enhance its quality and reliability. In real-world scenarios, data collected from sources such as databases, websites, sensors, or user inputs is often incomplete, duplicated, or incorrectly formatted, which can lead to misleading analysis and poor performance of machine learning models. The process of data cleaning involves several key operations, including handling missing values by either removing or imputing them, eliminating duplicate records to avoid redundancy, correcting data types (such as converting strings to numeric values), and standardizing formats like text case, date structures, or units of measurement. It may also include detecting and treating outliers, resolving inconsistencies across datasets, and validating data against defined rules or constraints. Effective data cleaning ensures that the dataset becomes accurate, consistent, and structured, thereby improving the quality of insights, enabling better decision-making, and forming a reliable foundation for data analysis, visualization, and predictive modeling tasks.

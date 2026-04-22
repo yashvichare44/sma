@@ -1,0 +1,80 @@
+import pandas as pd
+
+from textblob import TextBlob
+
+from wordcloud import WordCloud
+
+import matplotlib.pyplot as plt
+
+# Sample dataset
+
+data = {
+
+    "comment": [
+
+        "This product is amazing",
+
+        "Very bad experience",
+
+        "I love this service",
+
+        "Worst quality ever",
+
+        "Absolutely fantastic",
+
+        "Not worth the money",
+
+        "Superb and excellent",
+
+        "Terrible support"
+
+    ]
+
+}
+
+df = pd.DataFrame(data)
+
+# Sentiment classification
+
+df['sentiment'] = df['comment'].apply(
+
+    lambda x: "Positive" if TextBlob(str(x)).sentiment.polarity > 0 else "Negative"
+
+)
+
+print(df)
+
+# WordCloud visualization
+
+for s, bg in [("Positive", "white"), ("Negative", "black")]:
+
+    text = " ".join(df[df['sentiment'] == s]['comment'])
+
+    
+
+    wc = WordCloud(width=800, height=400, background_color=bg).generate(text)
+
+    
+
+    plt.imshow(wc)
+
+    plt.title(f"{s} Sentiment")
+
+    plt.axis("off")
+
+    plt.show()
+
+Sentiment Word Cloud (Practical):
+This program performs sentiment labeling with TextBlob and splits comments into positive and negative groups.
+It generates separate word clouds for each sentiment to highlight frequent terms visually.
+The practical helps interpret user opinion patterns from text data.
+
+🔹 2. Sentiment Analysis (Detailed Theory)
+
+Sentiment analysis is a natural language processing (NLP) technique used to determine the emotional tone or opinion expressed in textual data. It classifies text into categories such as positive, negative, or neutral based on the sentiment conveyed. This process is widely used in analyzing customer reviews, social media comments, and feedback to understand public opinion and user satisfaction. In this program, sentiment analysis is performed using the TextBlob library, which calculates a polarity score ranging from -1 (negative) to +1 (positive). Based on this polarity, each comment is labeled as positive or negative. Sentiment analysis helps organizations gain insights into user behavior, improve products and services, and make data-driven decisions.
+
+⸻
+
+🔹 3. WordCloud Visualization (Theory)
+
+A word cloud is a visual representation of text data where the size of each word indicates its frequency or importance in the dataset. Frequently occurring words appear larger and more prominent, while less common words appear smaller. In this program, word clouds are generated separately for positive and negative sentiments using the WordCloud library. By visualizing text data in this way, it becomes easier to identify commonly used words and patterns in different sentiment categories. Word clouds are widely used in text analysis to quickly summarize large amounts of textual information in an intuitive and visually appealing manner.
